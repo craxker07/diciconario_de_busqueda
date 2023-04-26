@@ -1,0 +1,71 @@
+class Nodo:
+    def __init__(self, palabra, significado):
+        self.palabra = palabra
+        self.significado = significado
+        self.izquierda = None
+        self.derecha = None
+
+class Diccionario:
+    def __init__(self):
+        self.raiz = None
+
+    def agregar_palabra(self, palabra, significado):
+        nuevo_nodo = Nodo(palabra, significado)
+
+        if self.raiz is None:
+            self.raiz = nuevo_nodo
+        else:
+            actual = self.raiz
+            while True:
+                if palabra < actual.palabra:
+                    if actual.izquierda is None:
+                        actual.izquierda = nuevo_nodo
+                        break
+                    else:
+                        actual = actual.izquierda
+                elif palabra > actual.palabra:
+                    if actual.derecha is None:
+                        actual.derecha = nuevo_nodo
+                        break
+                    else:
+                        actual = actual.derecha
+                else:
+                    # La palabra ya existe en el diccionario
+                    break
+
+    def buscar_palabra(self, palabra):
+        actual = self.raiz
+        while actual is not None:
+            if palabra == actual.palabra:
+                return actual.significado
+            elif palabra < actual.palabra:
+                actual = actual.izquierda
+            else:
+                actual = actual.derecha
+        # La palabra no se encuentra en el diccionario
+        return None
+   
+
+# Ejemplo de uso
+diccionario = Diccionario()
+diccionario.agregar_palabra("casa", "Edificio destinado a ser habitado por una familia o grupo de personas")
+diccionario.agregar_palabra("vida", "Fenómeno que distingue a los seres orgánicos del resto y que consiste en su capacidad de nacer, crecer, reproducirse y morir")
+diccionario.agregar_palabra("cantante", "Persona que canta profesionalmente o como afición")
+diccionario.agregar_palabra("paisaje", "Extensión de terreno que se presenta a la vista")
+diccionario.agregar_palabra("futbol", "Deporte en el que dos equipos de once jugadores cada uno intentan llevar una pelota a la portería contraria")
+diccionario.agregar_palabra("celular", "Teléfono móvil")
+diccionario.agregar_palabra("computador", "Máquina electrónica capaz de procesar datos y realizar diversas operaciones")
+diccionario.agregar_palabra("programacion", "Conjunto de instrucciones que se dan a una computadora para que realice una tarea específica")
+diccionario.agregar_palabra("respirar", "Inhalar y exhalar aire a través de los pulmones")
+diccionario.agregar_palabra("trabajar", "Realizar una actividad remunerada o no remunerada con el fin de obtener un beneficio")
+diccionario.agregar_palabra("estudiar", "Adquirir conocimientos o información sobre una materia o disciplina")
+diccionario.agregar_palabra("robot", "Máquina programable capaz de realizar tareas de forma autónoma")
+diccionario.agregar_palabra("cargador", "Dispositivo que se utiliza para cargar la batería de un dispositivo electrónico")
+diccionario.agregar_palabra("buso", " prenda de vestir")
+
+buscar_palabra = input("Ingrese una palabra: ")
+significado = diccionario.buscar_palabra(buscar_palabra)
+if significado is not None:
+    print(significado)
+else: 
+    print("La palabra no existe en el diccionario")
